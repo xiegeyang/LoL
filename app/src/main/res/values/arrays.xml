@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="regions">
+        <item>Select Region</item>
+        <item>NA</item>
+        <item>BR</item>
+        <item>JP</item>
+        <item>KR</item>
+    </string-array>
+</resources>
