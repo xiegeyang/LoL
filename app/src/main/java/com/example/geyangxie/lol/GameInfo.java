@@ -42,13 +42,13 @@ class FellowPlayers implements Serializable{
 class Stats implements Serializable{
     public int totalDamageDealtToChampions;
     public int goldEarned;
-    public int item0;
-    public int item1;
-    public int item2;
-    public int item3;
-    public int item4;
-
-    public int item6;
+    public Integer item0;
+    public Integer item1;
+    public Integer item2;
+    public Integer item3;
+    public Integer item4;
+    public Integer item5;
+    public Integer item6;
     public int wardPlaced;
     public int totalDamageTaken;
     public int trueDamageDealtPlayer;

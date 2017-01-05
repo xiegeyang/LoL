@@ -19,14 +19,16 @@ public class CustomListAdapter extends ArrayAdapter<String> {
     private final Bitmap[] imgid;
     private final String[] strLevel;
     private final String[] strKDA;
+    private final Bitmap[][] itemIcon;
 
-    public CustomListAdapter(Activity context, String[] isWin, String[] strLevel, String[] strKDA, Bitmap[] imgid){
+    public CustomListAdapter(Activity context, String[] isWin, String[] strLevel, String[] strKDA, Bitmap[] imgid, Bitmap[][] itemIcon){
         super(context,R.layout.imagetextlist, isWin);
         this.context=context;
         this.isWin=isWin;
         this.imgid=imgid;
         this.strLevel = strLevel;
         this.strKDA = strKDA;
+        this.itemIcon = itemIcon;
     }
 
     public View getView(int position, View view, ViewGroup parent) {
@@ -37,6 +39,15 @@ public class CustomListAdapter extends ArrayAdapter<String> {
         ImageView imageView = (ImageView) rowView.findViewById(R.id.champiomIcon);
         TextView textView_level = (TextView) rowView.findViewById(R.id.textView_level);
 
+        ImageView item0View = (ImageView)rowView.findViewById(R.id.imageView_item0);
+        ImageView item1View = (ImageView)rowView.findViewById(R.id.imageView_item1);
+        ImageView item2View = (ImageView)rowView.findViewById(R.id.imageView_item2);
+        ImageView item3View = (ImageView)rowView.findViewById(R.id.imageView_item3);
+        ImageView item4View = (ImageView)rowView.findViewById(R.id.imageView_item4);
+        ImageView item5View = (ImageView)rowView.findViewById(R.id.imageView_item5);
+        ImageView item6View = (ImageView)rowView.findViewById(R.id.imageView_item6);
+
+
         textView_isWin.setText(isWin[position]);
         if(isWin[position].equals("Loss")){
             textView_isWin.setTextColor(context.getResources().getColor(R.color.colorRed));
@@ -46,6 +57,26 @@ public class CustomListAdapter extends ArrayAdapter<String> {
 
         imageView.setImageBitmap(imgid[position]);
         textView_level.setText("Level: " + strLevel[position]);
+
+        Bitmap[] items = itemIcon[position];
+        if(items[0] != null)
+            item0View.setImageBitmap(items[0]);
+        if(items[1] != null)
+            item1View.setImageBitmap(items[1]);
+        if(items[2] != null)
+            item2View.setImageBitmap(items[2]);
+        if(items[3] != null)
+            item3View.setImageBitmap(items[3]);
+        if(items[4] != null)
+            item4View.setImageBitmap(items[4]);
+        if(items[5] != null)
+            item5View.setImageBitmap(items[5]);
+        if(items[6] != null)
+            item6View.setImageBitmap(items[6]);
+
+
+
+
         return rowView;
 
     };

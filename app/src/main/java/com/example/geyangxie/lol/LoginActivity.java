@@ -353,11 +353,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     return pieces[1].equals(mPassword);
                 }
             }*/
-            summoner = new SummonerInfo(SummonerName,Region);
+            summoner = new SummonerInfo(Region);
 
 
             try {
-                RequestEngine.getInstence().requestUserInfo(summoner.name,summoner.getRegion(), summoner);
+                RequestEngine.getInstence().requestUserInfo(SummonerName,summoner.getRegion(), summoner);
                 if(summoner.id == null || summoner.id.equals("")){
                     return true;
                 }

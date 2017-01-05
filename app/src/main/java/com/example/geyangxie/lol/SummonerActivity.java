@@ -18,6 +18,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -120,6 +121,8 @@ public class SummonerActivity extends AppCompatActivity
         private String strWin[];
         private String[] strLevel;
         private String[] strKDA;
+        private Bitmap[][] itemIcon;
+        //private Bitmap nav_bar_image;
 
         public SummonerRequestTask(SummonerInfo summoner){
             this.summoner = summoner;
@@ -148,6 +151,9 @@ public class SummonerActivity extends AppCompatActivity
                 else if(summoner.recentGames[i].stats.win == false) strWin[i] = "Loss";
                 strLevel[i] = Integer.toString(summoner.recentGames[i].stats.level);
             }
+
+            itemIcon = RequestEngine.getInstence().requestItemIcon(summoner);
+            //nav_bar_image = RequestEngine.getInstence().requetChampionImage(summoner);
             return summoner;
         }
 
@@ -285,9 +291,12 @@ public class SummonerActivity extends AppCompatActivity
                     imageView_tier.setImageResource(R.drawable.provisional);
                     break;
             }
-            CustomListAdapter adapter = new CustomListAdapter(SummonerActivity.this, strWin, strLevel, strKDA, championIcon);
+            //LinearLayout navBarLayout = (LinearLayout)findViewById(R.id.nav_bar);
+            //navBarLayout.setBackgroundResource(R.drawable.bronze);
+            CustomListAdapter adapter = new CustomListAdapter(SummonerActivity.this, strWin, strLevel, strKDA, championIcon, itemIcon);
             ListView list_RecentGame = (ListView)findViewById(R.id.recentGameList);
             list_RecentGame.setAdapter(adapter);
+
 
         }
     }

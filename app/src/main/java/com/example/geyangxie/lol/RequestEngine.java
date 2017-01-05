@@ -38,6 +38,7 @@ public class RequestEngine {
         }
         int id = jObject.getJSONObject(summerName).getInt("id");
         summoner.id = Integer.toString(id);
+        summoner.name = jObject.getJSONObject(summerName).getString("name");
         summoner.profileIconId = jObject.getJSONObject(summerName).getInt("profileIconId");
         summoner.summonerLevel = jObject.getJSONObject(summerName).getInt("summonerLevel");
         summoner.revisionDate = jObject.getJSONObject(summerName).getInt("revisionDate");
@@ -109,6 +110,11 @@ public class RequestEngine {
                     e.printStackTrace();
                 }
                 try {
+                    summoner.recentGames[i].stats.item5 = jObject.getJSONArray("games").getJSONObject(i).getJSONObject("stats").getInt("item5");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                try {
                     summoner.recentGames[i].stats.item6 = jObject.getJSONArray("games").getJSONObject(i).getJSONObject("stats").getInt("item6");
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -161,6 +167,18 @@ public class RequestEngine {
         return bmp;
     }
 
+    public Bitmap requetChampionImage(SummonerInfo summoner){
+        if(summoner == null) return null;
+        Bitmap bmp = null;
+        try {
+            URL url = new URL("http://ddragon.leagueoflegends.com/cdn/img/champion/splash/"+summoner.recentGames[0].championName+"_0.jpg");
+            bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return bmp;
+    }
+
     public Bitmap[] requetChampionIcon(SummonerInfo summoner){
         if(summoner == null) return null;
         Bitmap bmp[] = new Bitmap[summoner.recentGames.length];
@@ -176,6 +194,51 @@ public class RequestEngine {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return bmp;
+    }
+
+    public Bitmap[][] requestItemIcon(SummonerInfo summoner){
+        if(summoner == null) return null;
+        Bitmap[][] bmp = new Bitmap[summoner.recentGames.length][7];
+        for(int i =0;i<summoner.recentGames.length;i++){
+            URL url = null;
+            try {
+                if(summoner.recentGames[i].stats.item0!=null){
+                    url = new URL("http://ddragon.leagueoflegends.com/cdn/6.24.1/img/item/"+summoner.recentGames[i].stats.item0+".png");
+                    bmp[i][0] = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+                }
+                if(summoner.recentGames[i].stats.item1!=null){
+                    url = new URL("http://ddragon.leagueoflegends.com/cdn/6.24.1/img/item/"+summoner.recentGames[i].stats.item1+".png");
+                    bmp[i][1] = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+                }
+                if(summoner.recentGames[i].stats.item2!=null){
+                    url = new URL("http://ddragon.leagueoflegends.com/cdn/6.24.1/img/item/"+summoner.recentGames[i].stats.item2+".png");
+                    bmp[i][2] = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+                }
+                if(summoner.recentGames[i].stats.item3!=null){
+                    url = new URL("http://ddragon.leagueoflegends.com/cdn/6.24.1/img/item/"+summoner.recentGames[i].stats.item3+".png");
+                    bmp[i][3] = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+                }
+                if(summoner.recentGames[i].stats.item4!=null){
+                    url = new URL("http://ddragon.leagueoflegends.com/cdn/6.24.1/img/item/"+summoner.recentGames[i].stats.item4+".png");
+                    bmp[i][4] = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+                }
+                if(summoner.recentGames[i].stats.item5!=null){
+                    url = new URL("http://ddragon.leagueoflegends.com/cdn/6.24.1/img/item/"+summoner.recentGames[i].stats.item5+".png");
+                    bmp[i][5] = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+                }
+                if(summoner.recentGames[i].stats.item6!=null){
+                    url = new URL("http://ddragon.leagueoflegends.com/cdn/6.24.1/img/item/"+summoner.recentGames[i].stats.item6+".png");
+                    bmp[i][6] = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+
+
         return bmp;
     }
 

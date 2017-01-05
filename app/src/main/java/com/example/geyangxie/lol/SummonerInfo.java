@@ -33,8 +33,8 @@ public class SummonerInfo implements Serializable{
         return region;
     }
 
-    public SummonerInfo(String name, String region){
-        this.name = name;
+    public SummonerInfo(String region){
+        //this.name = name;
         switch(region){
             case "NA":
                 this.region = "na";
