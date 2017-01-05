@@ -3,12 +3,17 @@ package com.example.geyangxie.lol;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by GeyangXie on 1/3/2017.
@@ -20,8 +25,9 @@ public class CustomListAdapter extends ArrayAdapter<String> {
     private final String[] strLevel;
     private final String[] strKDA;
     private final Bitmap[][] itemIcon;
+    private final SummonerInfo summoner;
 
-    public CustomListAdapter(Activity context, String[] isWin, String[] strLevel, String[] strKDA, Bitmap[] imgid, Bitmap[][] itemIcon){
+    public CustomListAdapter(Activity context, String[] isWin, String[] strLevel, String[] strKDA,SummonerInfo summoner, Bitmap[] imgid, Bitmap[][] itemIcon){
         super(context,R.layout.imagetextlist, isWin);
         this.context=context;
         this.isWin=isWin;
@@ -29,6 +35,7 @@ public class CustomListAdapter extends ArrayAdapter<String> {
         this.strLevel = strLevel;
         this.strKDA = strKDA;
         this.itemIcon = itemIcon;
+        this.summoner = summoner;
     }
 
     public View getView(int position, View view, ViewGroup parent) {
@@ -46,7 +53,11 @@ public class CustomListAdapter extends ArrayAdapter<String> {
         ImageView item4View = (ImageView)rowView.findViewById(R.id.imageView_item4);
         ImageView item5View = (ImageView)rowView.findViewById(R.id.imageView_item5);
         ImageView item6View = (ImageView)rowView.findViewById(R.id.imageView_item6);
-
+        TextView textView_matchDate = (TextView)rowView.findViewById(R.id.textView_date);
+        Date currentDate = new Date();
+        Date matchDate = new Date(summoner.recentGames[position].createDate);
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MMM-dd hh:mm:ss");
+        textView_matchDate.setText(dateFormat.format(matchDate));
 
         textView_isWin.setText(isWin[position]);
         if(isWin[position].equals("Loss")){
@@ -56,7 +67,7 @@ public class CustomListAdapter extends ArrayAdapter<String> {
         }
 
         imageView.setImageBitmap(imgid[position]);
-        textView_level.setText("Level: " + strLevel[position]);
+        textView_level.setText(strKDA[position]);
 
         Bitmap[] items = itemIcon[position];
         if(items[0] != null)

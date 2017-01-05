@@ -16,7 +16,7 @@ public class GameInfo implements Serializable {
     public int level;
     public boolean invalid;
     public String subType;
-    public long createDate;
+    public Long createDate;
     public int championId;
     public String gameType;
     public Stats stats;

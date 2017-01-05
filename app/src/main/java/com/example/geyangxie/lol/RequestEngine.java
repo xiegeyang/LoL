@@ -149,6 +149,11 @@ public class RequestEngine {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+                try {
+                    summoner.recentGames[i].createDate = jObject.getJSONArray("games").getJSONObject(i).getLong("createDate");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
             }
 

@@ -22,6 +22,8 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.Date;
+
 public class SummonerActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -32,9 +34,10 @@ public class SummonerActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_summoner);
+        summoner = (SummonerInfo) getIntent().getSerializableExtra("summoner");
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle(summoner.name);
         setSupportActionBar(toolbar);
-
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -48,7 +51,7 @@ public class SummonerActivity extends AppCompatActivity
         TextView textView_Name = (TextView) navigationView.getHeaderView(0).findViewById(R.id.name);
         //TextView textView_Tier = (TextView) navigationView.getHeaderView(0).findViewById(R.id.tier);
 
-        summoner = (SummonerInfo) getIntent().getSerializableExtra("summoner");
+
         textView_Name.setText(summoner.name);
         //textView_Tier.setText(summoner.id);
 
@@ -293,7 +296,16 @@ public class SummonerActivity extends AppCompatActivity
             }
             //LinearLayout navBarLayout = (LinearLayout)findViewById(R.id.nav_bar);
             //navBarLayout.setBackgroundResource(R.drawable.bronze);
-            CustomListAdapter adapter = new CustomListAdapter(SummonerActivity.this, strWin, strLevel, strKDA, championIcon, itemIcon);
+
+            for(int i =0;i<summoner.recentGames.length;i++){
+                strKDA[i] = summoner.recentGames[i].stats.championsKilled + "/" +
+                        summoner.recentGames[i].stats.numDeaths+"/"+
+                        summoner.recentGames[i].stats.assists;
+            }
+            Date date = new Date(summoner.recentGames[0].createDate);
+            System.out.println(date);
+
+            CustomListAdapter adapter = new CustomListAdapter(SummonerActivity.this, strWin, strLevel, strKDA,summoner, championIcon, itemIcon);
             ListView list_RecentGame = (ListView)findViewById(R.id.recentGameList);
             list_RecentGame.setAdapter(adapter);
 

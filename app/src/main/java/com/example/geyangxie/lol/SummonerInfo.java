@@ -43,7 +43,7 @@ public class SummonerInfo implements Serializable{
                 this.region = region;
                 break;
         }
-        recentGames = new GameInfo[3];
+        recentGames = new GameInfo[5];
         for(int i =0;i<recentGames.length;i++){
             recentGames[i] = new GameInfo();
         }
